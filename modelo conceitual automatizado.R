@@ -1,4 +1,19 @@
-#Primeira etapa: Inserir os coeficientes das seguintes equaÁıes:
+#Cont√©m o modelo conceitual de avalia√ß√£o econ√¥mica da poliniza√ß√£o agr√≠cola automatizado. 
+#O arquivo deve ser usado no programa R.
+
+#A apica√ß√£o do modelo consiste em 4 etapas:
+#1¬™: inserir os coeficientes dos modelos estat√≠stico da produtividade e da qualidade do produto;
+#2¬∫: inserir os dados de custo de produ√ß√£o e dos pre√ßos;
+#3¬∫: montar as equa√ß√µes de produtividade, qualidade, custo de produ√ß√£o, receita e lucro;
+#4¬∫: Simula√ß√£o dos cen√°rios das proje√ß√µes do lucro em rela√ß√£o √†s pr√°ticas de manejo (gr√°ficos).
+
+#Para replicar o modelo sem alterar as vari√°veis de manejo, 
+#basta adaptar os valores dos coeficientes (1¬™ etapa) e dos dados de custo de produ√ß√£o e de pre√ßos (2¬™ etapa)
+#Para acrescentar novas vari√°veis de manejo agr√≠cola (convencional e de polinizadores), 
+#ter√° que adaptar todas as etapas, acrescentando as novas vari√°veis onde for necess√°rio. 
+
+
+#Primeira etapa: Inserir os coeficientes das seguintes equa√ß√µes:
 #1. Modelo de produtividade;
 #2. Modelo de baixa qualidade;
 #3. Modelo de alta qualidade. 
@@ -7,42 +22,42 @@
 #MODELO DA PRODUTIVIDADE#
 #########################
 
-# Este modelo indica o quanto a mÈdia da produtividade por flor (g/flor) È afetada por:
-# 1. pr·tica de fertilizante (kg de nitrogÍnio por hectare);
-# 2. pr·tica de manejo de abelhas (densidade de abelha do mel - visitantes por flor);
-# 3. pr·tica do capital natural (densidade de polinizadores nativos - visitantes por flor);
-# 4. e as interaÁıes entre essas trÍs pr·ticas. 
+# Este modelo indica o quanto a m√©dia da produtividade por flor (g/flor) √© afetada por:
+# 1. pr√°tica de fertilizante (kg de nitrog√™nio por hectare);
+# 2. pr√°tica de manejo de abelhas (densidade de abelha do mel - visitantes por flor);
+# 3. pr√°tica do capital natural (densidade de polinizadores nativos - visitantes por flor);
+# 4. e as intera√ß√µes entre essas tr√™s pr√°ticas. 
 
-#intercepto: produtividade mÈdia (g/flow) obtida sem as pr·ticas de manejo consideradas neste estudo. 
-#desvio padr„o: obtido pela multiplicaÁ„o entre o erro padr„o e a raiz quadrada do grau de liberdade dos resÌduos. 
+#intercepto: produtividade m√©dia (g/flow) obtida sem as pr√°ticas de manejo consideradas neste estudo. 
+#desvio padr√£o: obtido pela multiplica√ß√£o entre o erro padr√£o e a raiz quadrada do grau de liberdade dos res√≠duos. 
 baseY= -7.4024
 baseYsd= 2.1232*sqrt(26) 
-#fertilizante: efeito do nitrogÍnio (kg/ha) na produtividade (g/flor). 
-#   Nessa vari·vel foi usada a transformaÁ„o logarÌtmica. 
-#   Em seguida, inserir o erro padr„o e o grau de liberdade do resÌduo para calcular o desvio padr„o. 
+#fertilizante: efeito do nitrog√™nio (kg/ha) na produtividade (g/flor). 
+#   Nessa vari√°vel foi usada a transforma√ß√£o logar√≠tmica. 
+#   Em seguida, inserir o erro padr√£o e o grau de liberdade do res√≠duo para calcular o desvio padr√£o. 
 eN=1.6145 
 eNsd= 0.4663*sqrt(26)
 #manejo de abelhas: o efeito da densidade de abelhas do mel (visitantes por flor) na produtividade (g/flor). 
-#   Em seguida, inserir o erro padr„o e o grau de liberdade do resÌduo para calcular o desvio padr„o.
+#   Em seguida, inserir o erro padr√£o e o grau de liberdade do res√≠duo para calcular o desvio padr√£o.
 eMB=-37.1699
 eMBsd=29.1504*sqrt(26)
 #capital natural: o efeito da densidade de polinizadores nativos (visitantes por flor) na produtividade (g/flor). 
-#   Em seguida, inserir o erro padr„o e o grau de liberdade do resÌduo para calcular o desvio padr„o.
+#   Em seguida, inserir o erro padr√£o e o grau de liberdade do res√≠duo para calcular o desvio padr√£o.
 eNC = 2420.3289
 eNCsd=1357.9591*sqrt(26) 
-#(fertilizante)*(manejo de abelhas): efeito da interaÁ„o entre nitrogÍnio (fertilizante) e o manejo de abelha (densidade)
+#(fertilizante)*(manejo de abelhas): efeito da intera√ß√£o entre nitrog√™nio (fertilizante) e o manejo de abelha (densidade)
 #   na produtividade (g/flor).
-#   Em seguida, inserir o erro padr„o e o grau de liberdade do resÌduo para calcular o desvio padr„o. 
+#   Em seguida, inserir o erro padr√£o e o grau de liberdade do res√≠duo para calcular o desvio padr√£o. 
 iN_MB=0 
 iN_MBsd=0
-#(fertilizante)*(capital natural): efeito da interaÁ„o entre nitrogÍnio (fertilizante) e o capital natural (densidade)
+#(fertilizante)*(capital natural): efeito da intera√ß√£o entre nitrog√™nio (fertilizante) e o capital natural (densidade)
 #   na produtividade (g/flor).
-#   Em seguida, inserir o erro padr„o e o grau de liberdade do resÌduo para calcular o desvio padr„o. 
+#   Em seguida, inserir o erro padr√£o e o grau de liberdade do res√≠duo para calcular o desvio padr√£o. 
 iN_NC=-530.7988
 iN_NCsd=300.6824*sqrt(26)
-#(manejo de abelha)*(capital natural): efeito da interaÁ„o entre manejo de abelha (densidade) e o capital natural (densidade)
+#(manejo de abelha)*(capital natural): efeito da intera√ß√£o entre manejo de abelha (densidade) e o capital natural (densidade)
 #   na produtividade (g/flor).
-#   Em seguida, inserir o erro padr„o e o grau de liberdade do resÌduo para calcular o desvio padr„o. 
+#   Em seguida, inserir o erro padr√£o e o grau de liberdade do res√≠duo para calcular o desvio padr√£o. 
 iNC_MB=0
 iNC_MBsd=0
 
@@ -52,34 +67,34 @@ iNC_MBsd=0
 #MODELO DA BAIXA QUALIDADE#
 ###########################
 
-# Este modelo indica o quanto a probabilidade de um feij„o ser considerado de baixa qualidade È afetada por:
-# 1. pr·tica de fertilizante (kg de nitrogÍnio por hectare);
-# 2. pr·tica de manejo de abelhas (densidade de abelha do mel - visitantes por flor);
-# 3. pr·tica do capital natural (riqueza de polinizadores nativos - n∫ de espÈcies por flor);
-# 4. e as interaÁıes entre essas trÍs pr·ticas.
+# Este modelo indica o quanto a probabilidade de um feij√£o ser considerado de baixa qualidade √© afetada por:
+# 1. pr√°tica de fertilizante (kg de nitrog√™nio por hectare);
+# 2. pr√°tica de manejo de abelhas (densidade de abelha do mel - visitantes por flor);
+# 3. pr√°tica do capital natural (riqueza de polinizadores nativos - n¬∫ de esp√©cies por flor);
+# 4. e as intera√ß√µes entre essas tr√™s pr√°ticas.
 
-#O primeiro valor se refere ao coeficiente de cada vari·vel explicativa do modelo. 
-#O segundo valor se refere ao desvio padr„o calculado com base no erro padr„o e no grau de liberdade do resÌduo. 
+#O primeiro valor se refere ao coeficiente de cada vari√°vel explicativa do modelo. 
+#O segundo valor se refere ao desvio padr√£o calculado com base no erro padr√£o e no grau de liberdade do res√≠duo. 
 
-#intercepto: probabilidade mÈdia obtida sem o efeito das pr·ticas de manejo conisderadas no estudo. 
+#intercepto: probabilidade m√©dia obtida sem o efeito das pr√°ticas de manejo conisderadas no estudo. 
 baseQl=6.403e-01
 baseQlsd=3.520*sqrt(26)
-#fertilizante: efeito do nitroÍnio (kg/ha) na probabilidade de ocorrÍncia da baixa qualidade.
+#fertilizante: efeito do nitro√™nio (kg/ha) na probabilidade de ocorr√™ncia da baixa qualidade.
 eqlN=-5.795e-02 
 eqlNsd=2.919e-02*sqrt(26)
-#manejo de abelha: efeito da densidade de abelhas (visitantes por flor) na probabilidade de ocorrÍncia da baixa qualidade.  
+#manejo de abelha: efeito da densidade de abelhas (visitantes por flor) na probabilidade de ocorr√™ncia da baixa qualidade.  
 eqlMB=5.717e+03
 eqlMBsd=1.654e+03*sqrt(26)
-#capital natural: efeito da riqueza de polinizadores nativos (n™ de espÈcies por flor) na probabilidade de ocorrÍncia da baixa qualidade. 
+#capital natural: efeito da riqueza de polinizadores nativos (n¬™ de esp√©cies por flor) na probabilidade de ocorr√™ncia da baixa qualidade. 
 eqlNC=-6.599e+03 
 eqlNCsd=2.299e+03*sqrt(26)
-#(fertilizante)*(manejo de abelhas): efeito da interaÁ„o entre nitrogÍnio (kg/ha) e o manejo de abelha (densidade) na probabilidade de baixa qualidade.
+#(fertilizante)*(manejo de abelhas): efeito da intera√ß√£o entre nitrog√™nio (kg/ha) e o manejo de abelha (densidade) na probabilidade de baixa qualidade.
 iqlN_MB=5.362e+01 
 iqlN_MBsd=1.615e+01
-#(fertilizante)*(capital natural): efeito da interaÁ„o entre nitrogÍnio (kg/ha) e o capital natural (riqueza) na probabilidade de baixa qualidade.
+#(fertilizante)*(capital natural): efeito da intera√ß√£o entre nitrog√™nio (kg/ha) e o capital natural (riqueza) na probabilidade de baixa qualidade.
 iqlN_NC=7.342e+01
 iqlN_NCsd=2.476e+01*sqrt(26)
-#(manejo de abelhas)*(capital natural): efeito da interaÁ„o entre abelha do mel (densidade) e o capital natural (riqueza) na probabilidade de baixa qualidade.
+#(manejo de abelhas)*(capital natural): efeito da intera√ß√£o entre abelha do mel (densidade) e o capital natural (riqueza) na probabilidade de baixa qualidade.
 iqlNC_MB=-3.906e+05
 iqlNC_MBsd=2.166e+05*sqrt(26)
 
@@ -87,134 +102,134 @@ iqlNC_MBsd=2.166e+05*sqrt(26)
 #MODELO DA ALTA QUALIDADE#
 ##########################
 
-# Este modelo indica o quanto a probabilidade de um feij„o ser considerado de alta qualidade È afetada por:
-# 1. pr·tica de fertilizante (kg de nitrogÍnio por hectare);
-# 2. pr·tica de manejo de abelhas (densidade de abelha do mel - visitantes por flor);
-# 3. pr·tica do capital natural (densidade de polinizadores nativos - visitantes por flor);
-# 4. e as interaÁıes entre essas trÍs pr·ticas. 
+# Este modelo indica o quanto a probabilidade de um feij√£o ser considerado de alta qualidade √© afetada por:
+# 1. pr√°tica de fertilizante (kg de nitrog√™nio por hectare);
+# 2. pr√°tica de manejo de abelhas (densidade de abelha do mel - visitantes por flor);
+# 3. pr√°tica do capital natural (densidade de polinizadores nativos - visitantes por flor);
+# 4. e as intera√ß√µes entre essas tr√™s pr√°ticas. 
 
-#O primeiro valor se refere ao coeficiente de cada vari·vel explicativa do modelo. 
-#O segundo valor se refere ao desvio padr„o calculado com base no erro padr„o e no grau de liberdade do resÌduo. 
+#O primeiro valor se refere ao coeficiente de cada vari√°vel explicativa do modelo. 
+#O segundo valor se refere ao desvio padr√£o calculado com base no erro padr√£o e no grau de liberdade do res√≠duo. 
 
 
-#intercepto: probabilidade obtida sem o efeito das pr·ticas de manejo conisderadas no estudo. 
+#intercepto: probabilidade obtida sem o efeito das pr√°ticas de manejo conisderadas no estudo. 
 baseQh=-4.247e+00
 baseQhsd=2.412*sqrt(26)
-#fertilizante: efeito do nitroÍnio (kg/ha) na probabilidade de ocorrÍncia da alta qualidade.
+#fertilizante: efeito do nitro√™nio (kg/ha) na probabilidade de ocorr√™ncia da alta qualidade.
 eqhN=2.783e-02
 eqhNsd=2.290e-02*sqrt(26)
-#manejo de abelha: efeito da densidade de abelhas (visitantes por flor) na probabilidade de ocorrÍncia da alta qualidade.  
+#manejo de abelha: efeito da densidade de abelhas (visitantes por flor) na probabilidade de ocorr√™ncia da alta qualidade.  
 eqhMB=-1.020e+03
 eqhMBsd=3.500e+02*sqrt(26)
-#capital natural: efeito da densidade de polinizadores nativos (visitantes por flor) na probabilidade de ocorrÍncia da alta qualidade. 
+#capital natural: efeito da densidade de polinizadores nativos (visitantes por flor) na probabilidade de ocorr√™ncia da alta qualidade. 
 eqhNC=5.094e+03
 eqhNCsd=6.598e+02*sqrt(26)
-#(fertilizante)*(manejo de abelhas): efeito da interaÁ„o entre nitrogÍnio (kg/ha) e o manejo de abelha (densidade) na probabilidade de alta qualidade.
+#(fertilizante)*(manejo de abelhas): efeito da intera√ß√£o entre nitrog√™nio (kg/ha) e o manejo de abelha (densidade) na probabilidade de alta qualidade.
 iqhN_MB=1.156e+01 
 iqhN_MBsd=3.363*sqrt(26)
-#(fertilizante)*(capital natural): efeito da interaÁ„o entre nitrogÍnio (kg/ha) e o capital natural (riqueza) na probabilidade de alta qualidade.
+#(fertilizante)*(capital natural): efeito da intera√ß√£o entre nitrog√™nio (kg/ha) e o capital natural (riqueza) na probabilidade de alta qualidade.
 iqhN_NC=-5.538e+01
 iqhN_NCsd=7.208*sqrt(26)
-#(manejo de abelhas)*(capital natural): efeito da interaÁ„o entre abelha do mel (densidade) e o capital natural (riqueza) na probabilidade de alta qualidade.
+#(manejo de abelhas)*(capital natural): efeito da intera√ß√£o entre abelha do mel (densidade) e o capital natural (riqueza) na probabilidade de alta qualidade.
 iqhNC_MB=0
 iqhNC_MBsd=0
 
 
 
-#SEGUNDA ETAPA: Inserir os dados dos custos de produÁ„o e dos preÁos  
+#SEGUNDA ETAPA: Inserir os dados dos custos de produ√ß√£o e dos pre√ßos  
 
-#Custo associado com a aplicaÁ„o de pesticida (R$/ha).
+#Custo associado com a aplica√ß√£o de pesticida (R$/ha).
 Cpest=0 
-#Custo associado com a aplicaÁ„o de fertilizante (R$/kg).
-#O custo do fertilizante foi baseado no custo do nitrogÍnio contido na ureia. 
-#1 kg de ureia custa R$ 1,56 e contÈm 0.4 kg de nitrogÍnio, logo, 1kg de nitrogÍnio custa R$3.54.
+#Custo associado com a aplica√ß√£o de fertilizante (R$/kg).
+#O custo do fertilizante foi baseado no custo do nitrog√™nio contido na ureia. 
+#1 kg de ureia custa R$ 1,56 e cont√©m 0.4 kg de nitrog√™nio, logo, 1kg de nitrog√™nio custa R$3.54.
 Cfert=3.54
 #Custo associado com o manejo de abelhas.
-#O custo est· associado ao valor do investimento para atingir uma dada densidade de abelha do mel (visitantes por flor). 
-#O aluguel de uma colmeia È de R$350,00 e oferece 333 abelhas por hectare. 
-#Cada hectare tem em mÈdia 38900 flores (durante o pico da floraÁ„o) (calculado com base em uma ·rea de 50m2 em cada local de amostragem).
+#O custo est√° associado ao valor do investimento para atingir uma dada densidade de abelha do mel (visitantes por flor). 
+#O aluguel de uma colmeia √© de R$350,00 e oferece 333 abelhas por hectare. 
+#Cada hectare tem em m√©dia 38900 flores (durante o pico da flora√ß√£o) (calculado com base em uma √°rea de 50m2 em cada local de amostragem).
 #Assim, cada colmeia permite um aumento de densidade de 0.0086 abelhas do mel por flor. 
-#Portanto, o custo para se ter 1 abelha do mel por flor È de R$40800 por hectare por mÍs (350/(333/38900)).
-#Este valor ser· multiplicado pela densidade que se busca atingir.
-#Por exemplo, considerando uma densidade de 0.01 visitantes por flor, o custo do manejo de abelha ser· de R$408/mÍs (40800*0.01).
-#Assumi-se que os produtores aluguar„o as colmeias por 1 mes (perÌodo da floraÁ„o).
+#Portanto, o custo para se ter 1 abelha do mel por flor √© de R$40800 por hectare por m√™s (350/(333/38900)).
+#Este valor ser√° multiplicado pela densidade que se busca atingir.
+#Por exemplo, considerando uma densidade de 0.01 visitantes por flor, o custo do manejo de abelha ser√° de R$408/m√™s (40800*0.01).
+#Assumi-se que os produtores aluguar√£o as colmeias por 1 mes (per√≠odo da flora√ß√£o).
 Cmb=40800
 #Custo associado com o manejo do capital natural (R$/ha).
 Cnc=0
 #Outros custos fixos (R$/ha).
 Cother=229
-#Custo vari·vel (R$ por kg produzido) 
+#Custo vari√°vel (R$ por kg produzido) 
 VC=0.83
-#PreÁos associados a cada categoria de qualidade do produto (R$)
+#Pre√ßos associados a cada categoria de qualidade do produto (R$)
 PriceHQ=2.25 # para alta qualidade
-PriceMQ=2 # para mÈdia qualidade
+PriceMQ=2 # para m√©dia qualidade
 PriceLQ=1.75 # para baixa qualidade
 
 
 
 
-#TERCEIRA ETAPA: Montagem das equaÁıes
-#Para as equaÁıes, deve-se monstar considerando os cÛdigos dos coeficientes inseridos nas duas primeiras etapas. 
+#TERCEIRA ETAPA: Montagem das equa√ß√µes
+#Para as equa√ß√µes, deve-se monstar considerando os c√≥digos dos coeficientes inseridos nas duas primeiras etapas. 
 
-##EQUA«√O DA PRODUTIVIDADE
+##EQUA√á√ÉO DA PRODUTIVIDADE
 
 Yield_function = function(NC, MB, N){
   
   #Efeito do capital natural (NC), do manejo de abelhas (MB) e do fertilizante (N) sobre a produtividade (Yo)
-  #O modelo de produtividade foi obtido com a transformaÁ„o logit em (Y/(2-Y)), pois se trata de uma vari·vel sigmÛide (formato em s)
-  #Para estimat a produtividade È preciso fazer a transoformaÁ„o reversa, logo Yo=(2/(1/exp(Y)+1))    
+  #O modelo de produtividade foi obtido com a transforma√ß√£o logit em (Y/(2-Y)), pois se trata de uma vari√°vel sigm√≥ide (formato em s)
+  #Para estimat a produtividade √© preciso fazer a transoforma√ß√£o reversa, logo Yo=(2/(1/exp(Y)+1))    
         
         Yo=2/ (1/exp(baseY+eN*log(N)+(eMB+iN_MB*log(N)+iNC_MB*NC)*MB+(eNC+iN_NC*log(N))*NC)+1)
         ###Convertendo a estima de g/flor para kg/ha. 
-        ### peso por vagem * num flor por m2 /1000(gr para kg)*10000 (m2 para ha); numero vagens mÈdio= 196 (vagens/15*10))
+        ### peso por vagem * num flor por m2 /1000(gr para kg)*10000 (m2 para ha); numero vagens m√©dio= 196 (vagens/15*10))
         Y=Yo*196/1000*10000
   return(Y)
 }
 
-##EQUA«√O DO LUCRO (PF), QUE INCLUI:
-    #EQUA«√O DA PRODUTIVIDADE;
-    #EQUA«’ES DOS MODELOS DE QUALIDADE;
-    #EQUA«√O DO CUSTO DE PRODU«√O (PC);
-    #EQUA«√O DA RECEITA (R). 
+##EQUA√á√ÉO DO LUCRO (PF), QUE INCLUI:
+    #EQUA√á√ÉO DA PRODUTIVIDADE;
+    #EQUA√á√ïES DOS MODELOS DE QUALIDADE;
+    #EQUA√á√ÉO DO CUSTO DE PRODU√á√ÉO (PC);
+    #EQUA√á√ÉO DA RECEITA (R). 
 
 Pf_function = function(NC, MB, N){
       
-        ###EQUA«√O DA PRODUTIVIDADE
+        ###EQUA√á√ÉO DA PRODUTIVIDADE
         #Efeito do capital natural (NC), do manejo de abelhas (MB) e do fertilizante (N) sobre a produtividade (Yo)
         Yo=2/ (1/exp(baseY+eN*log(N)+(eMB+iN_MB*log(N)+iNC_MB*NC)*MB+(eNC+iN_NC*log(N))*NC)+1)
         Y=Yo*196/1000*10000
         
-        ###EQUA«’ES DOS MODELOS DE QUALIDADE
+        ###EQUA√á√ïES DOS MODELOS DE QUALIDADE
         #Efeito do capital natural (NC), do manejo de abelhas (MB) e do fertilizante (N) 
         #sobre a probabilidade de cada categoria de qualidade
         # ALTA qualidade 
           PHQ=baseQh+(eqhNC+iqhN_NC*N)*NC+eqhN*N+(eqhMB+iqhN_MB*N+iqhNC_MB*NC)*MB
-        #Aplicando a transformaÁ„o reversa no loggit (para modelos que assumem a distribuiÁ„o binomial)  
+        #Aplicando a transforma√ß√£o reversa no loggit (para modelos que assumem a distribui√ß√£o binomial)  
           PHQbt=1/(1+1/exp(PHQ))
         #BAIXA qualidade  
           PLQ=baseQl+(eqlNC+iqlN_NC*N)*NC+eqlN*N+(eqlMB+iqlN_MB*N+iqlNC_MB*NC)*MB
-        #Aplicando a transformaÁ„o reversa no loggit (para modelos que assumem a distribuiÁ„o binomial)  
+        #Aplicando a transforma√ß√£o reversa no loggit (para modelos que assumem a distribui√ß√£o binomial)  
           PLQbt=1/(1+1/exp(PHQ))    
-        #M…DIA qualidade  
+        #M√âDIA qualidade  
           PMQ=1 - PHQbt-PLQbt 
         
         
-        ###EQUA«√O DO CUSTO DE PRODU«√O (PC)
+        ###EQUA√á√ÉO DO CUSTO DE PRODU√á√ÉO (PC)
         FC=Cpest+Cfert*N+Cmb*MB+Cnc*NC+Cother #custo fixo
-        VCy= VC*Y  #custo vari·vel
+        VCy= VC*Y  #custo vari√°vel
         PC= FC+VCy  #custo total
         
-        ###EQUA«√O DA RECEITA (R) 
-        #R calculada considerndo a produtividade rateada entre as trÍs qualidade do produto 
-        #Multiplica pelo preÁo ajustado pela qualidade. 
+        ###EQUA√á√ÉO DA RECEITA (R) 
+        #R calculada considerndo a produtividade rateada entre as tr√™s qualidade do produto 
+        #Multiplica pelo pre√ßo ajustado pela qualidade. 
         R = PriceLQ*Y*PLQbt+ PriceMQ*Y*PMQ+PriceHQ*Y*PHQbt 
         
-        ###EQUA«√O DO LUCRO (Pf)
+        ###EQUA√á√ÉO DO LUCRO (Pf)
         Pf = R-PC
         return(Pf)
       }
       
-#As equaÁıes seguintes s„o usadas para a projeÁao do desvio padr„o nos gr·ficos. 
+#As equa√ß√µes seguintes s√£o usadas para a proje√ßao do desvio padr√£o nos gr√°ficos. 
       Pfsd_function = function(NC, MB, N){
         
  
@@ -224,27 +239,27 @@ Pf_function = function(NC, MB, N){
           for (j in 1:length(NC)) {
             for (k in 1:length(MB)){
               
-              ###EQUA«√O DA PRODUTIVIDADE
+              ###EQUA√á√ÉO DA PRODUTIVIDADE
               #Efeito do capital natural (NC), do manejo de abelhas (MB) e do fertilizante (N) sobre a produtividade (Yo)
               #Y=baseY+(eNC+iN_NC*log(N[i]))*NC[j]+eN*log(N[i])+(eMB+iN_MB*log(N[i])+iNC_MB*NC[j])*MB[k]
               Yo=2/ (1/exp(baseY+eN*log(N[i])+(eMB+iN_MB*log(N[i])+iNC_MB*NC[j])*MB[k]+(eNC+iN_NC*log(N[i]))*NC[j])+1)
               Y=Yo*196/1000*10000
               
-              ###EQUA«’ES DOS MODELOS DE QUALIDADE
+              ###EQUA√á√ïES DOS MODELOS DE QUALIDADE
               #Efeito do capital natural (NC), do manejo de abelhas (MB) e do fertilizante (N) 
               #sobre a probabilidade de cada categoria de qualidade 
               # ALTA qualidade
               PHQ=baseQh+(eqhNC+iqhN_NC*N[i])*NC[j]+eqhN*N[i]+(eqhMB+iqhN_MB*N[i]+iqhNC_MB*NC[j])*MB[k]
-              #Aplicando a transformaÁ„o reversa no loggit (para modelos que assumem a distribuiÁ„o binomial)  
+              #Aplicando a transforma√ß√£o reversa no loggit (para modelos que assumem a distribui√ß√£o binomial)  
               PHQbt=1/(1+1/exp(PHQ))
               #BAIXA qualidade  
               PLQ=baseQl+(eqlNC+iqlN_NC*N[i])*NC[j]+eqlN*N[i]+(eqlMB+iqlN_MB*N[i]+iqlNC_MB*NC[j])*MB[k]
-              #Aplicando a transformaÁ„o reversa no loggit (para modelos que assumem a distribuiÁ„o binomial) 
+              #Aplicando a transforma√ß√£o reversa no loggit (para modelos que assumem a distribui√ß√£o binomial) 
               PLQbt=1/(1+1/exp(PHQ))    
-              #M…DIA qualidade  
+              #M√âDIA qualidade  
               PMQ=1 - PHQbt-PLQbt 
               
-              ####CUSTO DE PRODU«√O (PC)
+              ####CUSTO DE PRODU√á√ÉO (PC)
               FC=Cpest+Cfert*N[i]+Cmb*MB[k]+Cnc*NC[j]+Cother  
               VCy= VC*Y 
               PC= FC+VCy 
@@ -257,13 +272,13 @@ Pf_function = function(NC, MB, N){
               
               
                  
-              ###PROJETANDO O DESVIO PADR√O
+              ###PROJETANDO O DESVIO PADR√ÉO
               #PRODUTIVIDADE
               Ysdo=2/ (1/exp(rnorm(10000,mean=baseY, sd=baseYsd)+rnorm(10000,mean=eN, sd=eNsd)*log(N[i])+
                             (rnorm(10000,mean=eMB, sd=eMBsd)+rnorm(10000,mean=iN_MB, sd=iN_MBsd)*log(N[i])+
                                rnorm(10000,mean=iNC_MB, sd=iNC_MBsd)*NC[j])*MB[k]+
                             (rnorm(10000,mean=eNC, sd=eNCsd)+rnorm(10000,mean=iN_NC, sd=iN_NCsd)*log(N[i]))*NC[j])+1)
-              Ysd=Ysdo*196/1000*10000 #N⁄MERO M…DIO DE FLORES POR HECTARE (196 flores por m2)
+              Ysd=Ysdo*196/1000*10000 #N√öMERO M√âDIO DE FLORES POR HECTARE (196 flores por m2)
               
               #QUALIDADE
               PHQsd=sd(rnorm(10000,mean=baseQh, sd=baseQhsd)+(rnorm(10000,mean=eqhNC, sd=eqhNCsd)+
@@ -285,7 +300,7 @@ Pf_function = function(NC, MB, N){
               PLQbt_sd=sd(1/(1+1/exp(rnorm(10000,mean=PHQ, sd=PHQsd))) )   
               PMQsd=sd(1 - rnorm(10000,mean=PHQbt, sd=PHQbt_sd)-rnorm(10000,mean=PLQbt , sd=PLQbt_sd))
               
-              #CUSTO DE PRODU«√O (PC)
+              #CUSTO DE PRODU√á√ÉO (PC)
               FCsd=0
               VCy_sd= sd(VC*rnorm(10000,mean=Y, sd=Ysd) )
               PCsd= sd((FC+VC*rnorm(10000,mean=Y, sd=Ysd))  )
@@ -311,17 +326,17 @@ Pf_function = function(NC, MB, N){
       
 
 
-#QUARTA ETAPA: Montagem dos gr·ficos 
-#Aqui È possÌvel projetar os gr·ficos do lucro (R$/ha) associado com o manejo de fertilizantes, de colmeias e de capital natural. 
+#QUARTA ETAPA: Montagem dos gr√°ficos 
+#Aqui √© poss√≠vel projetar os gr√°ficos do lucro (R$/ha) associado com o manejo de fertilizantes, de colmeias e de capital natural. 
       par(mfrow=c(1,1))
       
-      #GR¡FICO 1 - simula como o lucro varia com o capital natural 
+      #GR√ÅFICO 1 - simula como o lucro varia com o capital natural 
       #Manejo de colmeia:
           #Com manejo de colmeias (0.01 abelha por flor) (MB=0.01);
           #Sem manejo de colmeias (MB=0) 
       #Manejo de fertilizante (N)
-          #Uso elevado de nitrogÍnio (kg/ha) (N=130)
-          #Uso reduzido de nitrogÍnio (kg/ha) (N=60)
+          #Uso elevado de nitrog√™nio (kg/ha) (N=130)
+          #Uso reduzido de nitrog√™nio (kg/ha) (N=60)
       New.function<-function(x){Pf_function(x, MB=0, N=60)}
       New.function_sd<-function(x){Pfsd_function(x, MB=0, N=60)}
       fun_LOWCI <- function(x){
@@ -341,12 +356,12 @@ Pf_function = function(NC, MB, N){
       lines(x,y, col="red")
       
       
-      #GR¡FICO 2 - simula como o lucro varia com o manejo de colmeia (densidade de abelhas do mel)
+      #GR√ÅFICO 2 - simula como o lucro varia com o manejo de colmeia (densidade de abelhas do mel)
       #Manejo de capital natural (NC):
           #Densidade de polinizadores nativos de 0.001 (NC=0.001)
       #Manejo de fertilizante (N)
-          #Uso elevado de nitrogÍnio (kg/ha) (N=130)
-          #Uso reduzido de nitrogÍnio (kg/ha) (N=60)
+          #Uso elevado de nitrog√™nio (kg/ha) (N=130)
+          #Uso reduzido de nitrog√™nio (kg/ha) (N=60)
       New.function<-function(x){Pf_function(NC=0.001, x, N=130)}
       New.function_sd<-function(x){Pfsd_function(NC=0.001, x, N=130)}
       fun_LOWCI <- function(x){
@@ -365,7 +380,7 @@ Pf_function = function(NC, MB, N){
       y=0*x
       lines(x,y, col="red")
       
-      #GR¡FICO 3 - simula como o lucro varia com o fertilizante 
+      #GR√ÅFICO 3 - simula como o lucro varia com o fertilizante 
       #Manejo de colmeia (MB):
           #Com manejo de colmeias (0.01 abelha por flor) (MB=0.01);
           #Sem manejo de colmeias (MB=0)
@@ -384,7 +399,7 @@ Pf_function = function(NC, MB, N){
       par(new=TRUE)
       plot(fun_HIGHCI,  xlab="", ylab="", main="", xlim=c(0,150), ylim=c(-3000,6000), col="grey",type = "h"  )#, ylim=c(0,1e+05 )
      par(new=TRUE)
-      plot(New.function,  xlab="NitrogÍnio (kg/ha)", ylab="Lucro (R$/ha)", main="Com colmeia",lwd = 4, xlim=c(0,150), ylim=c(-3000,6000))
+      plot(New.function,  xlab="Nitrog√™nio (kg/ha)", ylab="Lucro (R$/ha)", main="Com colmeia",lwd = 4, xlim=c(0,150), ylim=c(-3000,6000))
       x=1:150-1
       y=0*x
       lines(x,y, col="red")
