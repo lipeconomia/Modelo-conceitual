@@ -7,7 +7,7 @@
 #3º: montar as equações de produtividade, qualidade, custo de produção, receita e lucro;
 #4º: Simulação dos cenários das projeções do lucro em relação às práticas de manejo (gráficos).
 
-#Para replicar o modelo sem alterar as variáveis de manejo, 
+#Para replicar o modelo sem alterar as variáveis de manejo consideradas no estudo de caso com o feijão, 
 #basta adaptar os valores dos coeficientes (1ª etapa) e dos dados de custo de produção e de preços (2ª etapa)
 #Para acrescentar novas variáveis de manejo agrícola (convencional e de polinizadores), 
 #terá que adaptar todas as etapas, acrescentando as novas variáveis onde for necessário. 
