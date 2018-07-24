@@ -1,7 +1,7 @@
 #Contém o modelo conceitual de avaliação econômica da polinização agrícola automatizado. 
 #O arquivo deve ser usado no programa R.
 
-#A apicação do modelo consiste em 4 etapas:
+#A aplicação do modelo consiste em 4 etapas:
 #1ª: inserir os coeficientes dos modelos estatístico da produtividade e da qualidade do produto;
 #2º: inserir os dados de custo de produção e dos preços;
 #3º: montar as equações de produtividade, qualidade, custo de produção, receita e lucro;
