@@ -140,7 +140,7 @@ iqhNC_MBsd=0
 
 #Custo associado com a aplicação de pesticida (R$/ha).
 Cpest=0 
-#Custo associado com a aplicação de fertilizante (R$/kg).
+#Custo associado com a aplicação de fertilizante (R$ por kg de nitrogenio aplicado por hectare).
 #O custo do fertilizante foi baseado no custo do nitrogênio contido na ureia. 
 #1 kg de ureia custa R$ 1,56 e contém 0.4 kg de nitrogênio, logo, 1kg de nitrogênio custa R$3.54.
 Cfert=3.54
