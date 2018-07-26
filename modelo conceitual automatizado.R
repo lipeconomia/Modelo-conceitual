@@ -1,16 +1,16 @@
-#Contém o modelo conceitual de avaliação econômica da polinização agrícola automatizado. 
+#Modelo conceitual de avaliação econômica da polinização agrícola automatizado. 
 #O arquivo deve ser usado no programa R.
 
 #A aplicação do modelo consiste em 4 etapas:
-#1ª: inserir os coeficientes dos modelos estatístico da produtividade e da qualidade do produto;
-#2º: inserir os dados de custo de produção e dos preços;
-#3º: montar as equações de produtividade, qualidade, custo de produção, receita e lucro;
-#4º: Simulação dos cenários das projeções do lucro em relação às práticas de manejo (gráficos).
+#1ª: inserir os coeficientes das equações dos modelos estatístico;
+#2ª: inserir os dados de custo de produção e dos preços;
+#3ª: montar as equações;
+#4ª: simular os cenários das projeções do lucro em relação às práticas de manejo (gráficos).
 
-#Para replicar o modelo sem alterar as variáveis de manejo consideradas no estudo de caso com o feijão, 
-#basta adaptar os valores dos coeficientes (1ª etapa) e dos dados de custo de produção e de preços (2ª etapa)
-#Para acrescentar novas variáveis de manejo agrícola (convencional e de polinizadores), 
-#terá que adaptar todas as etapas, acrescentando as novas variáveis onde for necessário. 
+#Para replicar o modelo considerando as mesmas práticas de manejo usadas no caso do feijão, 
+#basta adaptar os valores dos coeficientes (1ª etapa), do custo de produção e dos preços (2ª etapa)
+#Para acrescentar novas práticas de manejo agrícola (i.e., convencional ou de polinizadores), 
+#terá que adaptar todas as etapas, acrescentando as novas variáveis onde forem necessárias. 
 
 
 #Primeira etapa: Inserir os coeficientes das seguintes equações:
@@ -22,16 +22,15 @@
 #MODELO DA PRODUTIVIDADE#
 #########################
 
-# Este modelo indica o quanto a média da produtividade por flor (g/flor) é afetada por:
+# Este modelo indica o quanto a produtividade por flor (g/flor) é afetada pelas:
 # 1. prática de fertilizante (kg de nitrogênio por hectare);
 # 2. prática de manejo de abelhas (densidade de abelha do mel - visitantes por flor);
-# 3. prática do capital natural (densidade de polinizadores nativos - visitantes por flor);
-# 4. e as interações entre essas três práticas. 
+# 3. prática do capital natural (densidade de polinizadores nativos - visitantes por flor). 
 
 #intercepto: produtividade média (g/flow) obtida sem as práticas de manejo consideradas neste estudo. 
 #desvio padrão: obtido pela multiplicação entre o erro padrão e a raiz quadrada do grau de liberdade dos resíduos. 
 baseY= -7.4024
-baseYsd= 2.1232*sqrt(26) 
+baseYsd= 2.1232*sqrt(26) #erro padrão*sqrt(graus de liberdade)
 #fertilizante: efeito do nitrogênio (kg/ha) na produtividade (g/flor). 
 #   Nessa variável foi usada a transformação logarítmica. 
 #   Em seguida, inserir o erro padrão e o grau de liberdade do resíduo para calcular o desvio padrão. 
@@ -70,8 +69,7 @@ iNC_MBsd=0
 # Este modelo indica o quanto a probabilidade de um feijão ser considerado de baixa qualidade é afetada por:
 # 1. prática de fertilizante (kg de nitrogênio por hectare);
 # 2. prática de manejo de abelhas (densidade de abelha do mel - visitantes por flor);
-# 3. prática do capital natural (riqueza de polinizadores nativos - nº de espécies por flor);
-# 4. e as interações entre essas três práticas.
+# 3. prática do capital natural (riqueza de polinizadores nativos - nº de espécies por flor).
 
 #O primeiro valor se refere ao coeficiente de cada variável explicativa do modelo. 
 #O segundo valor se refere ao desvio padrão calculado com base no erro padrão e no grau de liberdade do resíduo. 
@@ -105,8 +103,7 @@ iqlNC_MBsd=2.166e+05*sqrt(26)
 # Este modelo indica o quanto a probabilidade de um feijão ser considerado de alta qualidade é afetada por:
 # 1. prática de fertilizante (kg de nitrogênio por hectare);
 # 2. prática de manejo de abelhas (densidade de abelha do mel - visitantes por flor);
-# 3. prática do capital natural (densidade de polinizadores nativos - visitantes por flor);
-# 4. e as interações entre essas três práticas. 
+# 3. prática do capital natural (densidade de polinizadores nativos - visitantes por flor). 
 
 #O primeiro valor se refere ao coeficiente de cada variável explicativa do modelo. 
 #O segundo valor se refere ao desvio padrão calculado com base no erro padrão e no grau de liberdade do resíduo. 
@@ -146,17 +143,17 @@ Cpest=0
 Cfert=3.54
 #Custo associado com o manejo de abelhas.
 #O custo está associado ao valor do investimento para atingir uma dada densidade de abelha do mel (visitantes por flor). 
-#O aluguel de uma colmeia é de R$350,00 e oferece 333 abelhas por hectare. 
-#Cada hectare tem em média 38900 flores (durante o pico da floração) (calculado com base em uma área de 50m2 em cada local de amostragem).
-#Assim, cada colmeia permite um aumento de densidade de 0.0086 abelhas do mel por flor. 
-#Portanto, o custo para se ter 1 abelha do mel por flor é de R$40800 por hectare por mês (350/(333/38900)).
+#O aluguel de uma colmeia é de R$350,00 e oferece 3333 abelhas por hectare. 
+#Cada hectare tem em média 389000 flores (durante o pico da floração) (calculado com base em uma área de 50m2 em cada local de amostragem).
+#Assim, cada colmeia permite um aumento de densidade de 0.01 abelhas do mel por flor. 
+#Portanto, o custo para se ter 1 abelha do mel por flor é de R$40800 por hectare por mês (350/(3333/389000)).
 #Este valor será multiplicado pela densidade que se busca atingir.
 #Por exemplo, considerando uma densidade de 0.01 visitantes por flor, o custo do manejo de abelha será de R$408/mês (40800*0.01).
 #Assumi-se que os produtores aluguarão as colmeias por 1 mes (período da floração).
 Cmb=40800
 #Custo associado com o manejo do capital natural (R$/ha).
 Cnc=0
-#Outros custos fixos (R$/ha).
+#Custos fixos (R$/ha).
 Cother=229
 #Custo variável (R$ por kg produzido) 
 VC=0.83
@@ -169,7 +166,7 @@ PriceLQ=1.75 # para baixa qualidade
 
 
 #TERCEIRA ETAPA: Montagem das equações
-#Para as equações, deve-se monstar considerando os códigos dos coeficientes inseridos nas duas primeiras etapas. 
+ 
 
 ##EQUAÇÃO DA PRODUTIVIDADE
 
@@ -181,7 +178,7 @@ Yield_function = function(NC, MB, N){
         
         Yo=2/ (1/exp(baseY+eN*log(N)+(eMB+iN_MB*log(N)+iNC_MB*NC)*MB+(eNC+iN_NC*log(N))*NC)+1)
         ###Convertendo a estima de g/flor para kg/ha. 
-        ### peso por vagem * num flor por m2 /1000(gr para kg)*10000 (m2 para ha); numero vagens médio= 196 (vagens/15*10))
+        ### peso por vagem * num flor por m2 /1000(gr para kg)*10000 (m2 para ha)
         Y=Yo*196/1000*10000
   return(Y)
 }
@@ -327,7 +324,7 @@ Pf_function = function(NC, MB, N){
 
 
 #QUARTA ETAPA: Montagem dos gráficos 
-#Aqui é possível projetar os gráficos do lucro (R$/ha) associado com o manejo de fertilizantes, de colmeias e de capital natural. 
+#Aqui é possível projetar os gráficos do lucro (R$/ha) associado com o manejo do capital natural, das colmeias e do fertilizante. 
       par(mfrow=c(1,1))
       
       #GRÁFICO 1 - simula como o lucro varia com o capital natural 
@@ -335,10 +332,10 @@ Pf_function = function(NC, MB, N){
           #Com manejo de colmeias (0.01 abelha por flor) (MB=0.01);
           #Sem manejo de colmeias (MB=0) 
       #Manejo de fertilizante (N)
-          #Uso elevado de nitrogênio (kg/ha) (N=130)
-          #Uso reduzido de nitrogênio (kg/ha) (N=60)
-      New.function<-function(x){Pf_function(x, MB=0, N=60)}
-      New.function_sd<-function(x){Pfsd_function(x, MB=0, N=60)}
+          #Uso intensivo de nitrogênio (kg/ha) (N=130)
+          #Uso moderado de nitrogênio (kg/ha) (N=60)
+      New.function<-function(x){Pf_function(x, MB=0, N=60)} #Inserir os valores referentes ao manejo
+      New.function_sd<-function(x){Pfsd_function(x, MB=0, N=60)} #Inserir os valores referentes ao manejo
       fun_LOWCI <- function(x){
         New.function(x) - 1.96*(New.function_sd(x)/sqrt(26))
       }
@@ -350,7 +347,7 @@ Pf_function = function(NC, MB, N){
       par(new=TRUE)
       plot(fun_HIGHCI,  xlab="", ylab="", main="", xlim=c(0,0.01), ylim=c(-3000,8000), col="grey",type = "h" )
        par(new=TRUE)
-      plot(New.function,  xlab="Capital natural (visitantes por flor)", ylab="Lucro (R$.ha-1)",lwd = 4, main="Baixo Ninput", xlim=c(0,0.01), ylim=c(-3000,8000) )
+      plot(New.function,  xlab="Capital natural (visitantes por flor)", ylab="Lucro (R$.ha-1)",lwd = 4, main="Moderado N input", xlim=c(0,0.01), ylim=c(-3000,8000) )
       x=1:2000/1000-1
       y=0*x
       lines(x,y, col="red")
@@ -360,10 +357,10 @@ Pf_function = function(NC, MB, N){
       #Manejo de capital natural (NC):
           #Densidade de polinizadores nativos de 0.001 (NC=0.001)
       #Manejo de fertilizante (N)
-          #Uso elevado de nitrogênio (kg/ha) (N=130)
-          #Uso reduzido de nitrogênio (kg/ha) (N=60)
-      New.function<-function(x){Pf_function(NC=0.001, x, N=130)}
-      New.function_sd<-function(x){Pfsd_function(NC=0.001, x, N=130)}
+          #Uso intensivo de nitrogênio (kg/ha) (N=130)
+          #Uso moderado de nitrogênio (kg/ha) (N=60)
+      New.function<-function(x){Pf_function(NC=0.001, x, N=130)} #Inserir os valores referentes ao manejo
+      New.function_sd<-function(x){Pfsd_function(NC=0.001, x, N=130)} #Inserir os valores referentes ao manejo
       fun_LOWCI <- function(x){
         New.function(x) - 1.96*(New.function_sd(x)/sqrt(26))
       }
@@ -375,7 +372,7 @@ Pf_function = function(NC, MB, N){
       par(new=TRUE)
       plot(fun_HIGHCI,  xlab="", ylab="", main="", xlim=c(0,0.01), ylim=c(-3000,6000), col="grey",type = "h"  )#, ylim=c(0,1e+05 )
       par(new=TRUE)
-      plot(New.function,  xlab="Abelhas do mel (visitantes por flor)", ylab="Lucro (R$/ha)", main="Baixo Ninput" ,lwd = 4, xlim=c(0,0.01), ylim=c(-3000,6000))
+      plot(New.function,  xlab="Abelhas do mel (visitantes por flor)", ylab="Lucro (R$/ha)", main="Moderado N input" ,lwd = 4, xlim=c(0,0.01), ylim=c(-3000,6000))
       x=1:2000/1000-1
       y=0*x
       lines(x,y, col="red")
@@ -386,8 +383,8 @@ Pf_function = function(NC, MB, N){
           #Sem manejo de colmeias (MB=0)
       #Manejo de capital natural (NC):
           #Densidade de polinizadores nativos de 0.001 (NC=0.001)
-      New.function<-function(x){Pf_function(NC=0.001, MB=0.01, x)}
-      New.function_sd<-function(x){Pfsd_function(NC=0.001, MB=0.01, x)}
+      New.function<-function(x){Pf_function(NC=0.001, MB=0.01, x)} #Inserir os valores referentes ao manejo
+      New.function_sd<-function(x){Pfsd_function(NC=0.001, MB=0.01, x)} #Inserir os valores referentes ao manejo
       fun_LOWCI <- function(x){
         New.function(x) - 1.96*(New.function_sd(x)/sqrt(26))
       }
