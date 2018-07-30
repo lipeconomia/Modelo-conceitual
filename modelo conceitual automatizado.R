@@ -1,16 +1,16 @@
-#Modelo conceitual de avaliação econômica da polinização agrícola automatizado. 
-#O arquivo deve ser usado no programa R.
+#Modelo conceitual para a avaliação econômica da polinização agrícola. 
+#Este código deve ser usado no programa R.
 
 #A aplicação do modelo consiste em 4 etapas:
 #1ª: inserir os coeficientes das equações dos modelos estatístico;
 #2ª: inserir os dados de custo de produção e dos preços;
-#3ª: montar as equações;
-#4ª: simular os cenários das projeções do lucro em relação às práticas de manejo (gráficos).
+#3ª: adaptar as equações;
+#4ª: simular os cenários das projeções do lucro em relação às práticas de manejo.
 
 #Para replicar o modelo considerando as mesmas práticas de manejo usadas no caso do feijão, 
 #basta adaptar os valores dos coeficientes (1ª etapa), do custo de produção e dos preços (2ª etapa)
 #Para acrescentar novas práticas de manejo agrícola (i.e., convencional ou de polinizadores), 
-#terá que adaptar todas as etapas, acrescentando as novas variáveis onde forem necessárias. 
+#terá que adaptar as equações (3ª etapa), acrescentando as novas variáveis onde forem necessárias. 
 
 
 #Primeira etapa: Inserir os coeficientes das seguintes equações:
@@ -32,7 +32,7 @@
 baseY= -7.4024
 baseYsd= 2.1232*sqrt(26) #erro padrão*sqrt(graus de liberdade)
 #fertilizante: efeito do nitrogênio (kg/ha) na produtividade (g/flor). 
-#   Nessa variável foi usada a transformação logarítmica. 
+#   Nessa variável foi usada a transformação logarítmica no caso do feijão. 
 #   Em seguida, inserir o erro padrão e o grau de liberdade do resíduo para calcular o desvio padrão. 
 eN=1.6145 
 eNsd= 0.4663*sqrt(26)
@@ -136,22 +136,27 @@ iqhNC_MBsd=0
 #SEGUNDA ETAPA: Inserir os dados dos custos de produção e dos preços  
 
 #Custo associado com a aplicação de pesticida (R$/ha).
+#No caso da aplicação no feijão, esse insumo foi agrupado junto a outros insumos nos custos variáveis. 
 Cpest=0 
 #Custo associado com a aplicação de fertilizante (R$ por kg de nitrogenio aplicado por hectare).
 #O custo do fertilizante foi baseado no custo do nitrogênio contido na ureia. 
 #1 kg de ureia custa R$ 1,56 e contém 0.4 kg de nitrogênio, logo, 1kg de nitrogênio custa R$3.54.
 Cfert=3.54
 #Custo associado com o manejo de abelhas.
-#O custo está associado ao valor do investimento para atingir uma dada densidade de abelha do mel (visitantes por flor). 
-#O aluguel de uma colmeia é de R$350,00 e oferece 3333 abelhas por hectare. 
-#Cada hectare tem em média 389000 flores (durante o pico da floração) (calculado com base em uma área de 50m2 em cada local de amostragem).
+#O custo está associado aos gastos para instalar um colmeia no campo agrícola.
+#Como as equações na 1ª etapa estão relacionadas à densidade de polinizadores, o custo foi considerado aqui como sendo 
+#também em função da densidade de abelhas manejadas. 
+#A instalação de uma colmeia é de R$350,00 e oferece 3333 abelhas por hectare. 
+#Cada hectare tem em média 389 mil flores durante o pico da floração.
 #Assim, cada colmeia permite um aumento de densidade de 0.01 abelhas do mel por flor. 
-#Portanto, o custo para se ter 1 abelha do mel por flor é de R$40800 por hectare por mês (350/(3333/389000)).
+#Portanto, o custo para se ter 1 abelha do mel por flor é de R$40,8 mil por hectare por mês (350/(3333/389000)).
 #Este valor será multiplicado pela densidade que se busca atingir.
-#Por exemplo, considerando uma densidade de 0.01 visitantes por flor, o custo do manejo de abelha será de R$408/mês (40800*0.01).
+#Por exemplo, considerando a densidade dada por 1 colmeia (i.e., 0.01 visitantes por flor), 
+#o custo do manejo será de R$408/mês (40800*0.01).
 #Assumi-se que os produtores aluguarão as colmeias por 1 mes (período da floração).
 Cmb=40800
 #Custo associado com o manejo do capital natural (R$/ha).
+#No caso do feijão, esse componente foi considerado nulo. 
 Cnc=0
 #Custos fixos (R$/ha).
 Cother=229
@@ -165,7 +170,7 @@ PriceLQ=1.75 # para baixa qualidade
 
 
 
-#TERCEIRA ETAPA: Montagem das equações
+#TERCEIRA ETAPA: Adaptação das equações
  
 
 ##EQUAÇÃO DA PRODUTIVIDADE
@@ -174,7 +179,7 @@ Yield_function = function(NC, MB, N){
   
   #Efeito do capital natural (NC), do manejo de abelhas (MB) e do fertilizante (N) sobre a produtividade (Yo)
   #O modelo de produtividade foi obtido com a transformação logit em (Y/(2-Y)), pois se trata de uma variável sigmóide (formato em s)
-  #Para estimat a produtividade é preciso fazer a transoformação reversa, logo Yo=(2/(1/exp(Y)+1))    
+  #Para estimar a produtividade é preciso fazer a transoformação reversa, logo Yo=(2/(1/exp(Y)+1))    
         
         Yo=2/ (1/exp(baseY+eN*log(N)+(eMB+iN_MB*log(N)+iNC_MB*NC)*MB+(eNC+iN_NC*log(N))*NC)+1)
         ###Convertendo a estima de g/flor para kg/ha. 
@@ -217,7 +222,7 @@ Pf_function = function(NC, MB, N){
         PC= FC+VCy  #custo total
         
         ###EQUAÇÃO DA RECEITA (R) 
-        #R calculada considerndo a produtividade rateada entre as três qualidade do produto 
+        #Receita calculada considerndo a produtividade rateada entre as três qualidade do produto 
         #Multiplica pelo preço ajustado pela qualidade. 
         R = PriceLQ*Y*PLQbt+ PriceMQ*Y*PMQ+PriceHQ*Y*PHQbt 
         
@@ -268,8 +273,7 @@ Pf_function = function(NC, MB, N){
               Pf = R-PC
               
               
-                 
-              ###PROJETANDO O DESVIO PADRÃO
+              
               #PRODUTIVIDADE
               Ysdo=2/ (1/exp(rnorm(10000,mean=baseY, sd=baseYsd)+rnorm(10000,mean=eN, sd=eNsd)*log(N[i])+
                             (rnorm(10000,mean=eMB, sd=eMBsd)+rnorm(10000,mean=iN_MB, sd=iN_MBsd)*log(N[i])+
@@ -323,7 +327,7 @@ Pf_function = function(NC, MB, N){
       
 
 
-#QUARTA ETAPA: Montagem dos gráficos 
+#QUARTA ETAPA: Projetando cenários de manejo de polinizadores.  
 #Aqui é possível projetar os gráficos do lucro (R$/ha) associado com o manejo do capital natural, das colmeias e do fertilizante. 
       par(mfrow=c(1,1))
       
